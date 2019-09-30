@@ -70,7 +70,7 @@ public:
 	{
 		int top = lua_gettop(L);
 		lua_rawgeti(L, LUA_REGISTRYINDEX, ClassIndex<T>::GetIndex());
-		checkf(lua_gettop(L) == top + 1, "top[%d] not expetced [%d]", lua_gettop(L), top + 1);
+		checkf(lua_gettop(L) == top + 1, TEXT("top[%d] not expetced [%d]"), lua_gettop(L), top + 1);
 		Write(L, "New");
 		lua_rawget(L, -2);
 		if (lua_isnil(L, -1))
@@ -88,7 +88,7 @@ public:
 		new(lua_newuserdata(L, sizeof(F))) F(f);
 		Write(L, f);
 		lua_setupvalue(L, -2, argn+1);
-		checkf(lua_gettop(L) == top + 2, "top[%d] not expetced [%d]", lua_gettop(L), top + 1);
+		checkf(lua_gettop(L) == top + 2, TEXT("top[%d] not expetced [%d]"), lua_gettop(L), top + 1);
 		lua_pop(L, 2);
 	}
 
@@ -109,17 +109,17 @@ public:
 	{
 		int top = lua_gettop(L);
 		lua_rawgeti(L, LUA_REGISTRYINDEX, ClassIndex<T>::GetIndex());
-		checkf(lua_gettop(L) == top + 1, "top[%d] not expetced [%d]", lua_gettop(L), top + 1);
+		checkf(lua_gettop(L) == top + 1, TEXT("top[%d] not expetced [%d]"), lua_gettop(L), top + 1);
 		Write(L, "__index");
 		lua_rawget(L, -2);
-		checkf(lua_gettop(L) == top + 3, "top[%d] not expetced [%d]", lua_gettop(L), top + 1);
+		checkf(lua_gettop(L) == top + 3, TEXT("top[%d] not expetced [%d]"), lua_gettop(L), top + 1);
 		lua_getupvalue(L, -1, 1);//getters
-		checkf(lua_gettop(L) == top + 4, "top[%d] not expetced [%d]", lua_gettop(L), top + 1);
+		checkf(lua_gettop(L) == top + 4, TEXT("top[%d] not expetced [%d]"), lua_gettop(L), top + 1);
 		Write(L, propertyname);
 		new(lua_newuserdata(L, sizeof(F))) F(f);
 		Write(L, f);
 		lua_settable(L, -3);
-		checkf(lua_gettop(L) == top + 4, "top[%d] not expetced [%d]", lua_gettop(L), top + 1);
+		checkf(lua_gettop(L) == top + 4, TEXT("top[%d] not expetced [%d]"), lua_gettop(L), top + 1);
 		lua_pop(L, 4);
 	}
 
@@ -128,17 +128,17 @@ public:
 	{
 		int top = lua_gettop(L);
 		lua_rawgeti(L, LUA_REGISTRYINDEX, ClassIndex<T>::GetIndex());
-		checkf(lua_gettop(L) == top + 1, "top[%d] not expetced [%d]", lua_gettop(L), top + 1);
+		checkf(lua_gettop(L) == top + 1, TEXT("top[%d] not expetced [%d]"), lua_gettop(L), top + 1);
 		Write(L, "__index");
 		lua_rawget(L, -2);
-		checkf(lua_gettop(L) == top + 3, "top[%d] not expetced [%d]", lua_gettop(L), top + 1);
+		checkf(lua_gettop(L) == top + 3, TEXT("top[%d] not expetced [%d]"), lua_gettop(L), top + 1);
 		lua_getupvalue(L, -1, 2);//setters
-		checkf(lua_gettop(L) == top + 4, "top[%d] not expetced [%d]", lua_gettop(L), top + 1);
+		checkf(lua_gettop(L) == top + 4, TEXT("top[%d] not expetced [%d]"), lua_gettop(L), top + 1);
 		Write(L, propertyname);
 		new(lua_newuserdata(L, sizeof(F))) F(f);
 		Write(L, f);
 		lua_settable(L, -3);
-		checkf(lua_gettop(L) == top + 4, "top[%d] not expetced [%d]", lua_gettop(L), top + 1);
+		checkf(lua_gettop(L) == top + 4, TEXT("top[%d] not expetced [%d]"), lua_gettop(L), top + 1);
 		lua_pop(L, 4);
 	}
 
@@ -147,10 +147,10 @@ public:
 	{
 		int top = lua_gettop(L);
 		lua_rawgeti(L, LUA_REGISTRYINDEX, ClassIndex<T>::GetIndex());
-		checkf(lua_gettop(L) == top + 1, "top[%d] not expetced [%d]", lua_gettop(L), top + 1);
+		checkf(lua_gettop(L) == top + 1, TEXT("top[%d] not expetced [%d]"), lua_gettop(L), top + 1);
 		Write(L, "__index");
 		lua_rawget(L, -2);
-		checkf(lua_gettop(L) == top + 3, "top[%d] not expetced [%d]", lua_gettop(L), top + 1);
+		checkf(lua_gettop(L) == top + 3, TEXT("top[%d] not expetced [%d]"), lua_gettop(L), top + 1);
 		new(lua_newuserdata(L, sizeof(F))) F(f);
 		Write(L, f);
 		lua_setupvalue(L, -2, 3);//indexfunc
