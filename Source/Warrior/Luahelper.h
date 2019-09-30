@@ -8,11 +8,41 @@
 #include "LuaDefine.h"
 #include "Logger.h"
 
+
 template<typename T>
 inline T upvalue_(lua_State *L)
 {
 	return *(T*)lua_touserdata(L, lua_upvalueindex(1));
 }
+
+#define ConstructorHead(n, p, m) \
+template<p(T,n)>\
+struct Constructor m(T, n) {\
+	static int Invoke(lua_State* L)\
+	{\
+		Write(L, new T(
+		
+		
+#define ConstructorTail()\
+));\
+		return 1;\
+	}\
+};
+
+#define CONSTRUCTOR(n) ConstructorHead(n, TNNH, VTN) RN(n,0) ConstructorTail()
+#define CONSTRUCTORMAX(n) ConstructorHead(n, TNNHD, MVTN) RN(n,0) ConstructorTail()
+
+CONSTRUCTORMAX(10)
+CONSTRUCTOR(9)
+CONSTRUCTOR(8)
+CONSTRUCTOR(7)
+CONSTRUCTOR(6)
+CONSTRUCTOR(5)
+CONSTRUCTOR(4)
+CONSTRUCTOR(3)
+CONSTRUCTOR(2)
+CONSTRUCTOR(1)
+
 
 #define FuncHead( n,p,m ) \
 template<typename V, p(T,n)>\
@@ -304,6 +334,11 @@ template<typename T>
 
 }
 
+ inline void Write(lua_State* L)
+ {
+	 lua_pushnil(L);
+ }
+
 template<typename T>
  inline void Write(lua_State* L, T i)
 {
@@ -417,6 +452,12 @@ template<>
 	lua_pushlightuserdata(L, p);
 }
 
+template<>
+inline void Write(lua_State* L, lua_CFunction f)
+{
+	lua_pushcfunction(L, f);
+}
+
 template<typename V, typename T>
  inline void Write(lua_State*L, V(T::*func)())
 {
@@ -466,4 +507,17 @@ template<typename V, typename T1, typename T2>
 	 ScriptObject* obj = Read<ScriptObject*>(L, -1);
 	 delete obj;
 	 return 0;
+ }
+
+ static int newfunc(lua_State* L)
+ {
+	 int n = lua_gettop(L);
+	 if (!lua_getupvalue(L, 1, n))
+		 luaL_error(L, "can not New with too many argument[%d]", n);
+	 if(lua_isnil(L,-1))
+		 luaL_error(L, "can not New with invalid argument number[%d]", n);
+	for (int i = 2;i <= n;i++)
+		lua_pushvalue(L, i);
+	lua_call(L, n - 1, -1);
+	return lua_gettop(L) - n;
  }

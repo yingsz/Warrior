@@ -1,7 +1,6 @@
 "local getters = { }\
 local setters = { }\
 local indexfunc\
-local gcfunc\
 \
 local classmeta = {\
 	__index = function(tb, k)\
@@ -22,10 +21,9 @@ local classmeta = {\
 			func(tb, v)\
 		end\
 	end,\
-	\
-	__gc = function(tb)\
-		if gcfunc then gcfunc(tb) end\
-	end\
+	__gc = nil,\
+\
+	New = nil,\
 }\
 \
 return classmeta"

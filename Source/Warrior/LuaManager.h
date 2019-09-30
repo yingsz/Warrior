@@ -59,6 +59,33 @@ public:
 		top = lua_gettop(L);
 		check(lua_gettop(L) == 1);
 	}
+	
+	template<typename T, typename F>
+	void ExportConstructor(int argn, F f)
+	{
+		int top = lua_gettop(L);
+		lua_rawgeti(L, LUA_REGISTRYINDEX, ClassIndex<T>::GetIndex());
+		checkf(lua_gettop(L) == top + 1, "top[%d] not expetced [%d]", lua_gettop(L), top + 1);
+		Write(L, "New");
+		lua_rawget(L, -2);
+		if (lua_isnil(L, -1))
+		{
+			lua_pop(L, 2);
+			for (int i = 1;i < 10;i++)
+				Write(L);
+			lua_pushcclosure(L, newfunc, 10);
+			Write(L, "New");
+			lua_pushvalue(L, -2);
+			lua_settable(L, -4);
+		}
+		else
+			lua_remove(L, -2);
+		new(lua_newuserdata(L, sizeof(F))) F(f);
+		Write(L, f);
+		lua_setupvalue(L, -2, argn+1);
+		checkf(lua_gettop(L) == top + 2, "top[%d] not expetced [%d]", lua_gettop(L), top + 1);
+		lua_pop(L, 2);
+	}
 
 	template<typename T, typename F>
 	void ExportFunc(const char * funcname, F f) 
