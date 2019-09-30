@@ -2,7 +2,7 @@
 #include "LuaRef.h"
 
 #define SCRIPTNAEM(name) "_"#name
-#define SCRIPTCLASS(name) name : public  ScriptObject \
+#define SCRIPTCLASS(name, ...) class name : public  ScriptObject, ##__VA_ARGS__\
 {\
 public: \
 const char* GetName(){ return SCRIPTNAEM(name);}\

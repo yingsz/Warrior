@@ -7,13 +7,18 @@
 #include "ScriptObject.h"
 #include "LuaHelper.h"
 #include "lua.hpp"
-#define _SCRIPT_DEF_BEGIN( x )			LuaClass< x >( "_"#x )
-#define _SCRIPT_DEF_FUNC( x )			.DefFunc( #x, &##x )
-#define _SCRIPT_DEF_GET( x )			.DefGet( #x, &##x##_get )
-#define _SCRIPT_DEF_SET( x )			.DefSet( #x, &##x##_set )
-#define _SCRIPT_DEF_SETGET( x )			.DefGet( #x, &##x##_get ).DefSet( #x, &##x##_set )
+#define _SCRIPT_DEF_BEGIN( x )				LuaClass< x >( "_"#x )
+#define _SCRIPT_DEF_NEW( )					.DefConstructor(0)
+#define _SCRIPT_DEF_NEW1( T1 )				.DefConstructor(1, TypeContainer<T1>)
+#define _SCRIPT_DEF_NEW2( T1,T2 )			.DefConstructor(2, TypeContainer<T1,T2>)
+#define _SCRIPT_DEF_NEW3( T1, T2, T3)		.DefConstructor(3, TypeContainer<T1,T2,T3>)
+#define _SCRIPT_DEF_NEW4( T1, T2, T3, T4)	.DefConstructor(4, TypeContainer<T1,T2,T3,T4>)
+#define _SCRIPT_DEF_FUNC( x )				.DefFunc(#x, &##x)
+#define _SCRIPT_DEF_GET( x )				.DefGet( #x, &##x##_get )
+#define _SCRIPT_DEF_SET( x )				.DefSet( #x, &##x##_set )
+#define _SCRIPT_DEF_SETGET( x )				.DefGet( #x, &##x##_get ).DefSet( #x, &##x##_set )
 
-#define _SCRIPT_DEF_FINISH( )			.Finish( );
+#define _SCRIPT_DEF_FINISH( )				.Finish( );
 template<typename T>
 struct ClassIndex
 {

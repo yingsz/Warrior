@@ -1,7 +1,9 @@
 #pragma once
 #include "ScriptObject.h"
 #include "LuaClass.h"
+#include "Luahelper.h"
 
+//SCRIPTCLASS(TestClass)
 class TestClass : public  ScriptObject 
 {
 public: 
@@ -13,6 +15,7 @@ public:
 	{
 		_SCRIPT_DEF_BEGIN( TestClass )
 			_SCRIPT_DEF_FUNC( Func1 )
+			_SCRIPT_DEF_NEW( )
 		_SCRIPT_DEF_FINISH( )
 	}
 public:

@@ -42,7 +42,7 @@ CONSTRUCTOR(4)
 CONSTRUCTOR(3)
 CONSTRUCTOR(2)
 CONSTRUCTOR(1)
-
+CONSTRUCTOR(0)
 
 #define FuncHead( n,p,m ) \
 template<typename V, p(T,n)>\
@@ -171,6 +171,28 @@ STATICVOIDFUNC(7)
 STATICVOIDFUNC(8)
 STATICVOIDFUNC(9)
 STATICVOIDFUNC(10)
+
+template<typename T1 = void, typename T2 = void, typename T3 = void, typename T4 = void>
+struct TypeContainer {
+};
+
+template<>
+struct TypeContainer<> {
+};
+
+template<typename T1>
+struct TypeContainer<T1>{
+};
+
+template<typename T1, typename T2>
+struct TypeContainer<T1,T2> {
+};
+
+template<typename T1, typename T2, typename T3>
+struct TypeContainer<T1, T2,T3> {
+};
+
+
 
 template<typename A, typename B, int C = 1> struct go_ { typedef A type; };
 template<typename A, typename B> struct go_<A, B, 0> { typedef B type; };

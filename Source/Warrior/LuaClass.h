@@ -13,6 +13,40 @@ public:
 		Singleton<LuaManager>::GetInstance()->ExportClass<T>(name);
 	}
 
+	inline LuaClass<T>& DefConstructor(int argn)
+	{
+		Singleton<LuaManager>::GetInstance()->ExportConstructor<T>(argn, Constructor<T>::Invoke);
+		return *this;
+	}
+
+	template<typename T1>
+	inline LuaClass<T>& DefConstructor(int argn, Constructor<T1>)
+	{
+		Singleton<LuaManager>::GetInstance()->ExportConstructor<T>(argn, Constructor<T,T1>::Invoke);
+		return *this;
+	}
+
+	template<typename T1, typename T2>
+	inline LuaClass<T>& DefConstructor(int argn, Constructor<T1,T2>)
+	{
+		Singleton<LuaManager>::GetInstance()->ExportConstructor<T>(argn, Constructor<T, T1,T2>::Invoke);
+		return *this;
+	}
+
+	template<typename T1, typename T2, typename T3>
+	inline LuaClass<T>& DefConstructor(int argn, Constructor<T1, T2, T3>)
+	{
+		Singleton<LuaManager>::GetInstance()->ExportConstructor<T>(argn, Constructor<T, T1,T2,T3>::Invoke);
+		return *this;
+	}
+
+	template<typename T1, typename T2, typename T3, typename T4>
+	inline LuaClass<T>& DefConstructor(int argn, Constructor<T1, T2, T3,T4>)
+	{
+		Singleton<LuaManager>::GetInstance()->ExportConstructor<T>(argn, Constructor<T, T1, T2, T3,T4>::Invoke);
+		return *this;
+	}
+
 	template<typename F> 
 	inline LuaClass<T>& DefFunc(const char* funcname, F f)
 	{

@@ -4,6 +4,7 @@
 #include "LuaAction.h"
 #include "LuaClass.h"
 
+//SCRIPTCLASS(Application, ISingleton)
 class Application : public  ScriptObject, ISingleton
 {
 public:
