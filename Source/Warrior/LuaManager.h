@@ -19,6 +19,9 @@
 #define _SCRIPT_DEF_SETGET( x )				.DefGet( #x, &##x##_get ).DefSet( #x, &##x##_set )
 
 #define _SCRIPT_DEF_FINISH( )				.Finish( );
+
+#define ClassName(T) #T
+
 template<typename T>
 struct ClassIndex
 {

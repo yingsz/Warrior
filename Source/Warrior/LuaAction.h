@@ -12,7 +12,7 @@ struct LuaAction m(n) :LuaRef{\
 		lua_pushhead(L, obj);\
 
 #define LuaActionTail(n) \
-	;lua_call(L, n, 0);\
+	;lua_pcall(L, n, 0, 0);\
 	}\
 };
 

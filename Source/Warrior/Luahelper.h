@@ -96,7 +96,7 @@ struct Func<void, T, T1> {
 		T* obj = NULL;
 		obj = Read<T*>(L, 1);
 		F func = upvalue_<F>(L);
-		LogWarn("type[%s]", UTF8_TO_TCHAR(ClassIndex<T1>::GetIndex()));
+		LogWarn("type[%d]",  ClassIndex<T1>::GetIndex());
 		T1 a1 = Read<T1>(L, 2);
 		(obj->*func)(a1);
 		return 0;
